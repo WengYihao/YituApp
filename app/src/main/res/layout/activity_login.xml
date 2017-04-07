@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cn.yitu.ui.LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/blue">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/ori" >
+
+        <TextView
+            android:id="@+id/back"
+            style="@style/style_back"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        style="@style/layout_w_h_2"
+        android:layout_marginTop="10dp"
+        android:gravity="center" >
+
+        <com.cn.yitu.view.MyEditText
+            android:id="@+id/username_et"
+            style="@style/match_parent_edittext"
+            android:phoneNumber="true"
+            android:hint="用户名" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/layout_w_h_2"
+        android:layout_marginTop="8dp"
+        android:gravity="center" >
+
+        <com.cn.yitu.view.MyEditText
+            android:id="@+id/password_et"
+            style="@style/match_parent_edittext"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:maxLength="11"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/layout_w_h_2"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/forget_pwd"
+            style="@style/layout_w_h_3"
+            android:layout_marginLeft="20dp"
+            android:text="忘记密码"
+            android:textColor="@color/ori"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/register_tv"
+            style="@style/layout_w_h_3"
+            android:text="注册"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/ori"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_aa"
+        style="@style/layout_w_h_2"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/login"
+            style="@style/login_btn_style"
+            android:text="登录" />
+    </RelativeLayout>
+</LinearLayout>
