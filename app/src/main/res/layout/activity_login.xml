@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.cn.yitu.ui.LoginActivity"
     android:orientation="vertical"
-    android:background="@color/blue">
+    android:background="@color/background">
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:id="@+id/username_et"
             style="@style/match_parent_edittext"
             android:phoneNumber="true"
-            android:hint="用户名" />
+            android:hint="用户名"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -51,7 +51,9 @@
             style="@style/match_parent_edittext"
             android:hint="密码"
             android:inputType="textPassword"
-            android:maxLength="11"/>
+            android:maxLength="11"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
     <RelativeLayout

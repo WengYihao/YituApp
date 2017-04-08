@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.server.QueryHTTP;
 import com.cn.yitu.view.MyEditText;
+import com.cn.yitu.xutil.Hide;
 import com.cn.yitu.xutil.MD5;
 import com.cn.yitu.xutil.SharePreferenceXutil;
 import com.cn.yitu.xutil.StringXutil;
@@ -130,5 +132,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (progDialog != null) {
             progDialog.dismiss();
         }
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                View view = getCurrentFocus();
+                Hide.hideKeyboard(ev, view, LoginActivity.this);// 调用方法判断是否需要隐藏键盘
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

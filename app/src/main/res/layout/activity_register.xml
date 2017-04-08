@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.cn.yitu.ui.RegisterActivity"
     android:orientation="vertical"
-    android:background="@color/blue">
+    android:background="@color/background">
 
     <RelativeLayout
         android:id="@+id/title"
@@ -35,7 +35,8 @@
         android:layout_marginTop="10dp"
         android:id="@+id/username"
         style="@style/match_parent_edittext"
-        android:hint="姓名:"/>
+        android:hint="姓名:"
+        android:textColorHint="@color/gray"/>
     <com.cn.yitu.view.MyEditText
         android:layout_marginTop="10dp"
         android:id="@+id/age"
@@ -56,14 +57,16 @@
             android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="男"/>
+            android:text="男"
+            android:textColor="@color/gray"/>
 
         <RadioButton
             android:id="@+id/woman"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="女"/>
+            android:text="女"
+            android:textColor="@color/gray"/>
 
     </RadioGroup>
 
@@ -79,20 +82,25 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:hint="电话号码:" />
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:background="@drawable/edit_bg"
+            android:hint="电话号码:"/>
 
         <Button
             android:id="@+id/getCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="获取验证码"/>
+            android:text="获取验证码"
+            android:background="@color/ori"/>
     </LinearLayout>
 
     <com.cn.yitu.view.MyEditText
         android:layout_marginTop="10dp"
         android:id="@+id/passWord"
         style="@style/match_parent_edittext"
-        android:hint="密码:"/>
+        android:hint="密码:"
+        android:textColorHint="@color/gray"/>
     <com.cn.yitu.view.MyEditText
         android:layout_marginTop="10dp"
         android:id="@+id/registerNumber"
@@ -107,17 +115,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册"/>
+            android:text="注册"
+            android:background="@color/ori"
+            android:layout_marginRight="10dp"/>
+
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:text="取消"
+            android:background="@color/ori"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 </LinearLayout>
