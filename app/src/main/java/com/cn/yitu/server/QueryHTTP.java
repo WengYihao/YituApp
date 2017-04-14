@@ -1,5 +1,7 @@
 package com.cn.yitu.server;
 
+import android.telecom.Call;
+
 import com.cn.yitu.config.base.BaseServer;
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.xutil.SharePreferenceXutil;
@@ -48,5 +50,31 @@ public class QueryHTTP extends BaseServer{
 		map.put("staff_password",staff_password);
 		map.put("regid", SharePreferenceXutil.getChannelId()); //推送id
 		post3("interface/mobile/query/login.do",map,callBack);
+	}
+
+	/**
+	 * 签到
+	 * @param account_token
+	 * @param lat
+	 * @param lng
+	 * @param callBack
+	 */
+	public void sign(String account_token, double lat, double lng, CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		map.put("lat",lat+"");
+		map.put("lng",lng+"");
+		post3("interface/mobile/update/sign_in.do",map,callBack);
+	}
+
+	/**
+	 * 获取本月签到
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getSign(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/accessToSignIn.do",map,callBack);
 	}
 }
