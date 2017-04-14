@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(String response) {
                 try{
                     JSONObject jsonObject = new JSONObject(response);
+                    Log.i("123",response+"返回值");
                     int resutltnumber = jsonObject.getInt("resultnumber");
                     switch(resutltnumber){
                         case 200:
@@ -102,6 +103,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             intent.setClass(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
                             LoginActivity.this.finish();
+                            break;
+                        case 201:
+                            ToastXutil.show("输入参数为空");
+                            dismissDialog();
                             break;
                         case 217:
                             ToastXutil.show("账号密码错误");

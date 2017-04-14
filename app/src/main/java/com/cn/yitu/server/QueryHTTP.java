@@ -2,6 +2,7 @@ package com.cn.yitu.server;
 
 import com.cn.yitu.config.base.BaseServer;
 import com.cn.yitu.config.base.CallBack;
+import com.cn.yitu.xutil.SharePreferenceXutil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class QueryHTTP extends BaseServer{
 		map.put("staff_password",staff_password);
 		map.put("registration_code",registration_code);
 		map.put("code",code);
+		map.put("regid",SharePreferenceXutil.getChannelId());    //推送id
 		post3("interface/mobile/update/register.do",map,callBack);
 	}
 
@@ -44,6 +46,7 @@ public class QueryHTTP extends BaseServer{
 		Map<String,String> map = new HashMap<>();
 		map.put("staff_phone",staff_phone);
 		map.put("staff_password",staff_password);
+		map.put("regid", SharePreferenceXutil.getChannelId()); //推送id
 		post3("interface/mobile/query/login.do",map,callBack);
 	}
 }

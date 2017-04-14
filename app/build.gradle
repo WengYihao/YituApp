@@ -18,7 +18,8 @@ android {
         }
         sourceSets {
             main {
-                jniLibs.srcDirs = ['libs']
+                jni.srcDirs = []
+                jniLibs.srcDirs = ['src/main/jniLibs']
             }
         }
     }
@@ -39,4 +40,6 @@ dependencies {
     compile files('libs/SMSSDK-2.1.4.jar')
     compile files('libs/universal-image-loader-1.9.4-with-sources.jar')
     compile files('libs/Volley.jar')
+    compile files('libs/jcore-android_v1.1.0.jar')
+    compile files('libs/jpush-android_v3.0.1.jar')
 }

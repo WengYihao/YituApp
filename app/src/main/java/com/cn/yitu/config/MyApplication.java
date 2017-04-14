@@ -3,6 +3,7 @@ package com.cn.yitu.config;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -11,6 +12,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
@@ -36,6 +38,9 @@ public class MyApplication extends Application {
 		ImageLoader.getInstance().init(config);
 		// 上下文
 		mContext = getApplicationContext();
+		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+		JPushInterface.init(this);     		// 初始化 JPush
+		Log.i("999", JPushInterface.getRegistrationID(this)+"****************");
 		queue = Volley.newRequestQueue(getApplicationContext());
 		//		初始化短信验证
 		SMSSDK.initSDK(getContext(), Constant.APPKEY, Constant.AppSecret);
