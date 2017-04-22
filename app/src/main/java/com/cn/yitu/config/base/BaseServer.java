@@ -92,7 +92,8 @@ public class BaseServer {
             }  
         }){  
             @Override  
-            protected Map<String, String> getParams() throws AuthFailureError {  
+            protected Map<String, String> getParams() throws AuthFailureError {
+				Log.i("456",map.toString()+"---");
                 return map;  
             }  
         };  

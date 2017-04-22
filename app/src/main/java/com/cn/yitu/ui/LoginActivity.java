@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        automaticLogin();
     }
 
     private void initView(){
@@ -84,6 +85,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * 快速登录
+     */
+    public void automaticLogin(){
+        if (SharePreferenceXutil.isSuccess()){
+            server.automaticLogin(SharePreferenceXutil.getToken(), new CallBack() {
+                @Override
+                public void onResponse(String response) {
+                    try{
+                        JSONObject jsonObject = new JSONObject(response);
+                        int resultnumber = jsonObject.getInt("resultnumber");
+                        switch (resultnumber){
+                            case 200:
+                                JSONObject json = jsonObject.getJSONObject("result");
+                                boolean isSign = json.getBoolean("sign_in");
+                                if (isSign){
+                                    //如果签到了跳转首页
+                                    Intent intent = new Intent();
+                                    intent.setClass(LoginActivity.this,MainActivity.class);
+                                    startActivity(intent);
+                                    LoginActivity.this.finish();
+                                }else{
+                                    //如果没有,跳转签到界面
+                                    Intent intent = new Intent();
+                                    intent.setClass(LoginActivity.this,SignActivity.class);
+                                    startActivity(intent);
+                                    LoginActivity.this.finish();
+                                }
+                        }
+                    }catch (Exception e){
+                        Log.i("123",e.getMessage()+"baocuo");
+                    }
+                }
+            });
+        }
+    }
+
     private void login(){
         server.login(username, md5Password, new CallBack() {
             @Override
@@ -99,10 +137,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             JSONObject json = jsonObject.getJSONObject("result");
                             String token = json.getString("account_token");
                             SharePreferenceXutil.saveToken(token);
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
+                            SharePreferenceXutil.setSuccess(true);
+                            boolean isSign = json.getJSONObject("staff").getBoolean("sign_in");
+                            if (isSign){
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                LoginActivity.this.finish();
+                            }else{
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this,SignActivity.class);
+                                startActivity(intent);
+                                LoginActivity.this.finish();
+                            }
                             break;
                         case 201:
                             ToastXutil.show("输入参数为空");

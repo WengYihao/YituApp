@@ -6,13 +6,55 @@
     android:background="@color/background">
 
     <Button
-        android:id="@+id/sign"
+        android:id="@+id/security"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:text="签到"
+        android:text="安保管理系统"
         android:background="@color/ori"/>
-    
+    <Button
+        android:id="@+id/cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="保洁管理系统"
+        android:layout_below="@id/security"
+        android:background="@color/ori"/>
+    <Button
+        android:id="@+id/boat"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="游船管理系统"
+        android:layout_below="@id/cleaning"
+        android:background="@color/ori"/>
+
+    <Button
+        android:id="@+id/ferry_car"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="摆渡车管理系统"
+        android:layout_below="@id/boat"
+        android:background="@color/ori"/>
+    <Button
+        android:id="@+id/helping"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="一键求助系统"
+        android:layout_below="@id/ferry_car"
+        android:background="@color/ori"/>
+
+
 </RelativeLayout>

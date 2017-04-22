@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ferry_car_pic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/edc"/>
+
+        <TextView
+            android:id="@+id/ferry_car_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ferry_car_pic"
+            android:text="摆渡车一"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/ferry_car_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ferry_car_pic"
+            android:layout_below="@id/ferry_car_name"
+            android:text="正常"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

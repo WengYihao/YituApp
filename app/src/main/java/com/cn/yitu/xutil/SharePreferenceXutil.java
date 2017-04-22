@@ -78,4 +78,22 @@ public class SharePreferenceXutil {
 	public static String getChannelId() {
 		return getSp().getString("channelId", "");
 	}
+
+	/**
+	 * 设置是否登录成功
+	 * @param isSuccess ：true:登录成功
+	 */
+	public static void setSuccess(boolean isSuccess) {
+		getSp().edit().putBoolean("isSuccess", isSuccess).commit();
+	}
+
+	/**
+	 * 获取是否登录成功
+	 * @return
+	 * 		true:登录成功
+	 */
+	public static boolean isSuccess() {
+		boolean isAutoLogin = getSp().getBoolean("isSuccess", false);
+		return isAutoLogin;
+	}
 }

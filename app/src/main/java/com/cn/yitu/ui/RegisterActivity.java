@@ -15,6 +15,7 @@ import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.server.QueryHTTP;
 import com.cn.yitu.view.MyEditText;
 import com.cn.yitu.xutil.Hide;
+import com.cn.yitu.xutil.MD5;
 import com.cn.yitu.xutil.StringXutil;
 import com.cn.yitu.xutil.ToastXutil;
 
@@ -92,7 +93,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         two = age.getText().toString();
         three = gongzhong.getText().toString();
         four = phoneNumber.getText().toString();
-        five = passWord.getText().toString();
+        try{
+            five = MD5.getMD5(passWord.getText().toString());
+        }catch (Exception e){
+            Log.i("123","密码加密报错");
+        }
         six = registerNumber.getText().toString();
         seven = code.getText().toString();
         if (man.isChecked()){
@@ -119,6 +124,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                                 Intent intent = new Intent();
                                 intent.setClass(RegisterActivity.this,LoginActivity.class);
                                 startActivity(intent);
+                                break;
+                            case 201:
+                                ToastXutil.show("输入参数为空");
                                 break;
                             case 204:
                                 ToastXutil.show("系统错误,请稍后在试!");

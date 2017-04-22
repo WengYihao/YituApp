@@ -2,12 +2,14 @@ package com.cn.yitu.server;
 
 import android.telecom.Call;
 
+import com.cn.yitu.config.Constant;
 import com.cn.yitu.config.base.BaseServer;
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.xutil.SharePreferenceXutil;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class QueryHTTP extends BaseServer{
@@ -34,6 +36,7 @@ public class QueryHTTP extends BaseServer{
 		map.put("staff_password",staff_password);
 		map.put("registration_code",registration_code);
 		map.put("code",code);
+		map.put("appKey", Constant.APPKEY);
 		map.put("regid",SharePreferenceXutil.getChannelId());    //推送id
 		post3("interface/mobile/update/register.do",map,callBack);
 	}
@@ -76,5 +79,60 @@ public class QueryHTTP extends BaseServer{
 		Map<String,String> map = new HashMap<>();
 		map.put("account_token",account_token);
 		post3("interface/mobile/query/accessToSignIn.do",map,callBack);
+	}
+
+	/**
+	 * 快速登录
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void automaticLogin(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/automaticLogin.do",map,callBack);
+	}
+
+
+	/**
+	 * 获取所有安保路线
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getSecurity(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/queryAllTheSecurityLine.do",map,callBack);
+	}
+	/**
+	 * 获取所有保洁区域
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getClean(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/queryAllCleaningArea.do",map,callBack);
+	}
+
+	/**
+	 * 获取所有游船
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getBoat(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/queryAllPleasureBoat.do",map,callBack);
+	}
+
+	/**
+	 * 获取摆渡车
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getFerryCar(String account_token,CallBack callBack){
+		Map<String,Object> map = new HashMap<>();
+		map.put("account_token",account_token);
+		get("interface/mobile/query/queryAllFerryPush.do",map,callBack);
 	}
 }
