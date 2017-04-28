@@ -115,6 +115,31 @@ public class QueryHTTP extends BaseServer{
 	}
 
 	/**
+	 * 绑定打扫区域
+	 * @param account_token
+	 * @param cleaning_area_id
+	 * @param callBack
+	 */
+	public void bingClean(String account_token,int cleaning_area_id,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		map.put("cleaning_area_id",cleaning_area_id+"");
+		post3("interface/mobile/update/saveCleaningRecords.do",map,callBack);
+	}
+
+	/**
+	 * 绑定安保路线
+	 * @param account_token
+	 * @param the_security_line_id
+	 * @param callBack
+	 */
+	public void bingSecurity(String account_token,int the_security_line_id,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		map.put("the_security_line_id",the_security_line_id+"");
+		post3("interface/mobile/update/saveSecurityPatrolRecord.do",map,callBack);
+	}
+	/**
 	 * 获取所有游船
 	 * @param account_token
 	 * @param callBack
@@ -134,5 +159,13 @@ public class QueryHTTP extends BaseServer{
 		Map<String,Object> map = new HashMap<>();
 		map.put("account_token",account_token);
 		get("interface/mobile/query/queryAllFerryPush.do",map,callBack);
+	}
+
+	/**
+	 * 上传打扫完的图片
+	 * @param callBack
+	 */
+	public void sendPhoto(Map<String,String> map, CallBack callBack){
+		post3("interface/mobile/update/endCleaningRecordsBate64Upload.do",map,callBack);
 	}
 }

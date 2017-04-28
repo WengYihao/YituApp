@@ -1,9 +1,11 @@
 package com.cn.yitu.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -11,7 +13,9 @@ import com.cn.yitu.adapter.CleanAdapter;
 import com.cn.yitu.bean.CleanBean;
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.server.QueryHTTP;
+import com.cn.yitu.view.show.ToastDialog;
 import com.cn.yitu.xutil.SharePreferenceXutil;
+import com.cn.yitu.xutil.ToastXutil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -50,6 +54,16 @@ public class CleanActivity extends AppCompatActivity implements View.OnClickList
         listView.setAdapter(cleanAdapter);
         token = SharePreferenceXutil.getToken();
         server = new QueryHTTP();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharePreferenceXutil.saveCleanId(listClean.get(position).getCleaning_area_id());
+                Intent intent = new Intent();
+                intent.setClass(CleanActivity.this,CleanResultActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

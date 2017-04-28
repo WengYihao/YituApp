@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.cn.yitu.config.MyApplication"
@@ -168,7 +169,18 @@
         <activity android:name=".SecurityActivity" />
         <activity android:name=".CleanActivity" />
         <activity android:name=".BoatActivity" />
-        <activity android:name=".FerryCarActivity"></activity>
+        <activity android:name=".FerryCarActivity" />
+        <activity android:name=".CleanResultActivity" />
+        <activity android:name=".SelectPhotoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PhotoPickerActivity" />
+        <activity android:name=".PreviewPhotoActivity" />
+        <activity android:name=".SecurityResultActivity"></activity>
     </application>
 
 </manifest>

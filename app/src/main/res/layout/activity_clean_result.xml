@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cn.yitu.ui.CleanResultActivity"
+    android:background="@color/background">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/ori">
+
+        <TextView
+            android:id="@+id/back"
+            style="@style/style_back"
+            android:layout_gravity="center_vertical" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title">
+
+        <ImageView
+            android:id="@+id/clean_region"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/blue"/>
+        <LinearLayout
+            android:id="@+id/staff_info"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/clean_region"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/staff_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="员工姓名:小翁"
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:textColor="@color/gray"/>
+            <TextView
+                android:id="@+id/staff_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="员工电话:15112360329"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/staff_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/onBind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="绑定区域"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:background="@color/ori"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/upLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传图片"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:background="@color/ori"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

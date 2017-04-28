@@ -131,6 +131,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                             case 204:
                                 ToastXutil.show("系统错误,请稍后在试!");
                                 break;
+                            case 212:
+                                ToastXutil.show("短信验证码有误!");
+                                break;
                         }
                     }catch (Exception e){
                         e.printStackTrace();

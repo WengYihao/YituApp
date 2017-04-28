@@ -1,9 +1,11 @@
 package com.cn.yitu.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,6 +56,16 @@ public class SecurityActivity extends AppCompatActivity implements View.OnClickL
         listView.setAdapter(securityAdapter);
         token = SharePreferenceXutil.getToken();
         server = new QueryHTTP();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharePreferenceXutil.saveSecurityId(listSecurity.get(position).getThe_security_line_id());
+                Intent intent = new Intent();
+                intent.setClass(SecurityActivity.this,SecurityResultActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -72,16 +84,12 @@ public class SecurityActivity extends AppCompatActivity implements View.OnClickL
                 try{
                     JSONObject jsonObject = new JSONObject(response);
                     int resultnumber = jsonObject.getInt("resultnumber");
-                    Log.i("123",resultnumber+"----");
-                    Log.i("123",response+"------------");
                     switch (resultnumber){
                         case 200:
-                            Log.i("123","200"+"----");
                             JSONArray array = jsonObject.getJSONArray("result");
                             Gson gson = new Gson();
                             List<SecurityBean> list = gson.fromJson(array.toString(),new TypeToken<List<SecurityBean>>(){}.getType());
                             if (list.size() > 0){
-                                Log.i("123","300"+"----");
                                 listSecurity.clear();
                                 listSecurity.addAll(list);
                                 securityAdapter.setList(listSecurity);
