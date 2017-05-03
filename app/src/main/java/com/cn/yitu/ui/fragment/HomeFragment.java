@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.server.QueryHTTP;
@@ -28,6 +30,8 @@ import com.cn.yitu.xutil.SharePreferenceXutil;
 import com.cn.yitu.xutil.ToastXutil;
 
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * Created by Shinelon on 2017/3/30.

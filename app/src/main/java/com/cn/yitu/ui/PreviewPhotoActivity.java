@@ -129,7 +129,8 @@ public class PreviewPhotoActivity extends AppCompatActivity {
     }
 
     // 完成按钮的监听
-    private class GallerySendListener implements View.OnClickListener {
+
+     private class GallerySendListener implements View.OnClickListener {
         public void onClick(View v) {
             finish();
             intent.setClass(mContext, SelectPhotoActivity.class);

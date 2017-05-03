@@ -55,6 +55,11 @@
         android:text="一键求助系统"
         android:layout_below="@id/ferry_car"
         android:background="@color/ori"/>
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/helping"/>
 
 
 </RelativeLayout>

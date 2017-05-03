@@ -24,15 +24,14 @@
         android:layout_height="match_parent"
         android:layout_below="@id/title">
 
-        <ImageView
-            android:id="@+id/clean_region"
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/blue"/>
+            android:layout_height="250dp"/>
         <LinearLayout
             android:id="@+id/staff_info"
             android:layout_marginTop="20dp"
-            android:layout_below="@id/clean_region"
+            android:layout_below="@id/map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
