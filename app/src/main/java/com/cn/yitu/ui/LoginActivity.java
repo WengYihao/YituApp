@@ -43,7 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login = (TextView)findViewById(R.id.login);
         username_et = (MyEditText)findViewById(R.id.username_et);
         password_et = (MyEditText)findViewById(R.id.password_et);
-
+        if (!StringXutil.isEmpty(SharePreferenceXutil.getUserName()) && !StringXutil.isEmpty(SharePreferenceXutil.getPassword())){
+            username_et.setText(SharePreferenceXutil.getUserName());
+            password_et.setText(SharePreferenceXutil.getPassword());
+        }
         back.setOnClickListener(this);
         forget_pwd.setOnClickListener(this);
         register_tv.setOnClickListener(this);
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * 快速登录
      */
     public void automaticLogin(){
-        if (SharePreferenceXutil.isSuccess()){
+        if (SharePreferenceXutil.isSuccess() && !SharePreferenceXutil.isExit()){
             server.automaticLogin(SharePreferenceXutil.getToken(), new CallBack() {
                 @Override
                 public void onResponse(String response) {
@@ -136,8 +139,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             ToastXutil.show("登录成功");
                             JSONObject json = jsonObject.getJSONObject("result");
                             String token = json.getString("account_token");
+                            SharePreferenceXutil.saveUserNameAndPwd(username, password);
                             SharePreferenceXutil.saveToken(token);
                             SharePreferenceXutil.setSuccess(true);
+                            SharePreferenceXutil.setExit(false);
+                            int workId = json.getJSONObject("staff").getInt("type_of_work_id");
+                            SharePreferenceXutil.saveWorkId(workId);
                             boolean isSign = json.getJSONObject("staff").getBoolean("sign_in");
                             if (isSign){
                                 Intent intent = new Intent();

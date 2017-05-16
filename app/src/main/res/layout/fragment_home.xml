@@ -5,61 +5,53 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <Button
-        android:id="@+id/security"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="安保管理系统"
-        android:background="@color/ori"/>
-    <Button
-        android:id="@+id/cleaning"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="保洁管理系统"
-        android:layout_below="@id/security"
-        android:background="@color/ori"/>
-    <Button
-        android:id="@+id/boat"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="游船管理系统"
-        android:layout_below="@id/cleaning"
-        android:background="@color/ori"/>
 
-    <Button
-        android:id="@+id/ferry_car"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="摆渡车管理系统"
-        android:layout_below="@id/boat"
-        android:background="@color/ori"/>
-    <Button
-        android:id="@+id/helping"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="一键求助系统"
-        android:layout_below="@id/ferry_car"
-        android:background="@color/ori"/>
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@id/helping"/>
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/start"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:text="开始任务"
+        android:background="@drawable/circular_background"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上传报告"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:background="@color/ori"
+        android:layout_marginBottom="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/ori"
+            android:text="任务"/>
+        <TextView
+            android:id="@+id/route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ori"
+            android:padding="10dp"
+            android:text="路线"/>
+    </LinearLayout>
 
 </RelativeLayout>

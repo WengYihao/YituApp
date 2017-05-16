@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 
 import com.cn.yitu.ui.fragment.HomeFragment;
 import com.cn.yitu.ui.fragment.SettingFragment;
+import com.cn.yitu.xutil.ActivityCollector;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
 
@@ -26,6 +27,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+        ActivityCollector.addActivity(this);
         initView();
     }
 

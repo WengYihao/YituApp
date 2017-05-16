@@ -3,11 +3,13 @@ package com.cn.yitu.config.base;
 import com.android.volley.RequestQueue;
 import com.cn.yitu.config.MyApplication;
 import com.cn.yitu.config.MyConfig;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import org.json.JSONObject;
+
 import android.util.Log;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
@@ -146,5 +148,4 @@ public class BaseServer {
 		});
 		quene.add(request);
 	}
-
 }

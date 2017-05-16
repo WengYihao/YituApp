@@ -7,6 +7,7 @@ import com.cn.yitu.config.base.BaseServer;
 import com.cn.yitu.config.base.CallBack;
 import com.cn.yitu.xutil.SharePreferenceXutil;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class QueryHTTP extends BaseServer{
 	 * @param callBack 回调接口
 	 */
 	public void register(String staff_name,String staff_age,String type_of_work_id,String staff_sex,String staff_phone,String staff_password,String registration_code,String code,CallBack callBack){
-        Map<String,String> map = new HashMap<String,String>();
+		Map<String,String> map = new HashMap<String,String>();
 		map.put("staff_name",staff_name);
 		map.put("staff_age",staff_age);
 		map.put("type_of_work_id",type_of_work_id);
@@ -139,6 +140,20 @@ public class QueryHTTP extends BaseServer{
 		map.put("the_security_line_id",the_security_line_id+"");
 		post3("interface/mobile/update/saveSecurityPatrolRecord.do",map,callBack);
 	}
+
+	/**
+	 * 获取路线坐标集合
+	 * @param account_token
+	 * @param the_security_line_id
+	 * @param callBack
+	 */
+	public void getLine(String account_token,int the_security_line_id,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		map.put("the_security_line_id",the_security_line_id+"");
+		post3("interface/mobile/query/tidQueryTheSecurityLine.do",map,callBack);
+	}
+
 	/**
 	 * 获取所有游船
 	 * @param account_token
@@ -167,5 +182,45 @@ public class QueryHTTP extends BaseServer{
 	 */
 	public void sendPhoto(Map<String,String> map, CallBack callBack){
 		post3("interface/mobile/update/endCleaningRecordsBate64Upload.do",map,callBack);
+	}
+
+	/**
+	 * 获取工种任务
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void getTask(String account_token,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		post3("interface/mobile/query/queryCraft.do",map,callBack);
+	}
+
+	/**
+	 * 巡逻点报告
+	 * @param map
+	 * @param callBack
+	 */
+	public void sendReport(Map<String,String> map, CallBack callBack){
+		post3("interface/mobile/update/updateNowLocationdsByte64.do",map,callBack);
+	}
+
+	/**
+	 * 签退
+	 * @param account_token
+	 * @param callBack
+	 */
+	public void signOut(String account_token,double lat,double lng,CallBack callBack){
+		Map<String,String> map = new HashMap<>();
+		map.put("account_token",account_token);
+		map.put("lat",lat+"");
+		map.put("lng",lng+"");
+		post3("interface/mobile/update/sign_out.do",map,callBack);
+	}
+
+	/*
+	测试
+	 */
+	public void test(Map<String,String> map, CallBack callBack){
+		post3("error/parameterTest.do",map,callBack);
 	}
 }

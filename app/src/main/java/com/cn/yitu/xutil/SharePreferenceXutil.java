@@ -15,7 +15,7 @@ public class SharePreferenceXutil {
 		}
 		return sp;
 	}
-	
+
 	private static SharedPreferences getHisSp(){
 		if (hisSp == null) {
 			hisSp = MyApplication.getContext().getSharedPreferences(Constant.history, Context.MODE_PRIVATE);
@@ -23,6 +23,31 @@ public class SharePreferenceXutil {
 		return hisSp;
 	}
 
+	/**
+	 * 保存用户名和密码
+	 * @param userName
+	 * @param password :保存在本地是没有加密的密码
+	 */
+	public static void saveUserNameAndPwd(String userName, String password) {
+		getSp().edit().putString("userName", userName).commit();
+		getSp().edit().putString("password", password).commit();
+	}
+
+	/**
+	 * 获取用户名
+	 * @return
+	 */
+	public static String getUserName() {
+		return getSp().getString("userName", "");
+	}
+
+	/**
+	 * 获取密码
+	 * @return
+	 */
+	public static String getPassword() {
+		return getSp().getString("password", "");
+	}
 	/**
 	 * 保存账号ID
 	 * @param numberId
@@ -38,13 +63,21 @@ public class SharePreferenceXutil {
 	public static int getNumberId() {
 		return getSp().getInt("numberId", 0);
 	}
-	
+
 	/**
-	 * 保存用户ID
-	 * @param userId
+	 * 保存工种ID
+	 * @param WorkId
 	 */
-	public static void saveUserId(int userId) {
-		getSp().edit().putInt("userId", userId).commit();
+	public static void saveWorkId(int WorkId) {
+		getSp().edit().putInt("WorkId", WorkId).commit();
+	}
+
+	/**
+	 * 获取工种ID
+	 * @return
+	 */
+	public static int getWorkId() {
+		return getSp().getInt("WorkId", 0);
 	}
 
 	/**
@@ -126,5 +159,21 @@ public class SharePreferenceXutil {
 	 */
 	public static int getCleanId(){
 		return getSp().getInt("clean_area_id",0);
+	}
+	/**
+	 * 设置是否退出
+	 * @param isExit ：true:确认退出
+	 */
+	public static void setExit(boolean isExit) {
+		getSp().edit().putBoolean("isExit", isExit).commit();
+	}
+
+	/**
+	 * 获取是否退出
+	 * @return
+	 */
+	public static boolean isExit() {
+		boolean isAutoLogin = getSp().getBoolean("isExit", false);
+		return isAutoLogin;
 	}
 }

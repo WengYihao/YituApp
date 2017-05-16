@@ -508,7 +508,7 @@ public class PhotoPickerActivity extends AppCompatActivity implements PhotoAdapt
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("123",mPhotoLists.toString()+"ha");
         mPhotoLists.clear();
-        Log.i("123",mPhotoLists.toString()+"789");
     }
 }

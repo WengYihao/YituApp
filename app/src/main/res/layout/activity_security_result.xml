@@ -71,15 +71,7 @@
                 android:padding="10dp"
                 android:background="@color/ori"
                 android:layout_marginRight="10dp"/>
-            <TextView
-                android:id="@+id/onStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="开始巡逻"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:background="@color/ori"
-                android:layout_marginLeft="10dp"/>
+
         </LinearLayout>
 
     </RelativeLayout>

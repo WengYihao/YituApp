@@ -11,73 +11,82 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cn.yitu.bean.ImageItem;
+import com.cn.yitu.config.MyConfig;
 import com.cn.yitu.config.base.CallBack;
+import com.cn.yitu.config.base.okhttp;
 import com.cn.yitu.server.QueryHTTP;
+import com.cn.yitu.server.SecurityReceive;
 import com.cn.yitu.xutil.Bimp;
 import com.cn.yitu.xutil.BitmapUtils;
-import com.cn.yitu.xutil.GraphicsBitmapUtils;
 import com.cn.yitu.xutil.SharePreferenceXutil;
 import com.cn.yitu.xutil.SystemUtil;
 import com.cn.yitu.xutil.ToastXutil;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SelectPhotoActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class SendActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_PHOTO = 1;
     private List<Bitmap> mResults = new ArrayList<>();
-    private TextView send;
     public static Bitmap bimap;
-    private GridView noScrollgridview;
+    private GridView gridview;
     private GridAdapter adapter;
     private ArrayList<String> result;
-    private QueryHTTP server;
+    private TextView back,send;
+    private CheckBox isCheck;
+    private EditText report;
     private String token;
+    private QueryHTTP server;
     private ProgressDialog progDialog = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_photo);
+        setContentView(R.layout.activity_send);
         bimap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_focused);
         mResults.add(bimap);
         initView();
     }
-    private void initView() {
+
+    private void initView(){
+        back  =(TextView)findViewById(R.id.back);
         send = (TextView)findViewById(R.id.send);
+        isCheck  =(CheckBox)findViewById(R.id.isCheak);
+        gridview = (GridView)findViewById(R.id.gridview);
+        report = (EditText)findViewById(R.id.report);
+        back.setOnClickListener(this);
         send.setOnClickListener(this);
-        noScrollgridview = (GridView) findViewById(R.id.noScrollgridview);
-        noScrollgridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter = new GridAdapter(this);
         adapter.update();
-        noScrollgridview.setAdapter(adapter);
-        server = new QueryHTTP();
-        token = SharePreferenceXutil.getToken();
-        progDialog = new ProgressDialog(this);
-        noScrollgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridview.setAdapter(adapter);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == mResults.size() - 1 || i == Bimp.tempSelectBitmap.size()) {
-                    Intent intent = new Intent(SelectPhotoActivity.this, PhotoPickerActivity.class);
+                    Intent intent = new Intent(SendActivity.this, PhotoPickerActivity.class);
                     intent.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, true);
                     intent.putExtra(PhotoPickerActivity.EXTRA_SELECT_MODE, PhotoPickerActivity.MODE_MULTI);
                     intent.putExtra(PhotoPickerActivity.EXTRA_MAX_MUN, PhotoPickerActivity.DEFAULT_NUM);
@@ -85,7 +94,7 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
                     intent.putExtra(PhotoPickerActivity.TOTAL_MAX_MUN, Bimp.tempSelectBitmap.size());
                     startActivityForResult(intent, PICK_PHOTO);
                 } else {
-                    Intent intent = new Intent(SelectPhotoActivity.this,
+                    Intent intent = new Intent(SendActivity.this,
                             PreviewPhotoActivity.class);
                     intent.putExtra("position", "1");
                     intent.putExtra("ID", i);
@@ -93,74 +102,76 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
+
+        token = SharePreferenceXutil.getToken();
+        server = new QueryHTTP();
+        progDialog = new ProgressDialog(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.back:
+                this.finish();
+                break;
             case R.id.send:
-                showDialog();
-                Map<String,String> map = new HashMap<>();
-                for (int i = 0;i < mResults.size()-1;i++){
-                    String key = i + 1 + "_picture";
-                    String val = Base64.encodeToString(GraphicsBitmapUtils.Bitmap2Bytes(mResults.get(i)), Base64.DEFAULT);
-                    map.put(key,val);
-                }
-                map.put("account_token",token);
-                server.sendPhoto(map, new CallBack() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            int resultnumber = jsonObject.getInt("resultnumber");
-                            switch (resultnumber){
-                                case 200:
-                                    dismissDialog();
-                                    ToastXutil.show("上传成功");
-                                    SelectPhotoActivity.this.finish();
-                                    break;
-                                case 202:
-                                    dismissDialog();
-                                    ToastXutil.show("参数为空");
-                                    break;
-                                case 232:
-                                    dismissDialog();
-                                    ToastXutil.show("请先选择打扫区域");
-                                    break;
-                                case 233:
-                                    dismissDialog();
-                                    ToastXutil.show("已提交此区域的打扫信息");
-                                    break;
-                                case 234:
-                                    dismissDialog();
-                                    ToastXutil.show("上传保洁信息失败");
-                                    break;
-                            }
-                        }catch (Exception e){
-
-                        }
-
-                    }
-                });
-
+                sendForOk();
                 break;
         }
     }
 
+    public void sendForOk(){
+        showDialog();
+        String url = MyConfig.url+"interface/mobile/update/updateNowLocationds.do";
+        Map<String ,Object> map = new HashMap<String, Object>();
+        map.put("account_token", token);
+        map.put("state", isCheck.isChecked()+"");
+        map.put("report", report.getText().toString());
+        for (int i = 0; i < result.size(); i++) {
+            String key = i + 1 + "_picture";
+            File val = new File(result.get(i));
+            map.put(key,val);
+        }
+        okhttp okhttp = new okhttp();
+        okhttp.uploadImgAndParameter(map, url, new CallBack() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int resultnumber = jsonObject.getInt("resultnumber");
+                    switch (resultnumber){
+                        case 200:
+                            dismissDialog();
+                            ToastXutil.show("上传成功");
+                            SecurityReceive.isOpen = false;
+                            SendActivity.this.finish();
+                            break;
+                        default:
+                            dismissDialog();
+                            break;
+                    }
+                }catch (Exception e){
+
+                }
+
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
-                Log.i("bbb",result+"------------------------");
                 showResult(result);
+                Log.i("123","123");
             }
+        }else{
+            Log.i("123","456");
         }
     }
 
     private void showResult(ArrayList<String> paths) {
-        Log.i("bbb",paths+"====================");
         if (mResults == null) {
             mResults = new ArrayList<>();
         }
@@ -181,7 +192,6 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
         mResults.add(BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_focused));
         adapter.notifyDataSetChanged();
     }
-
     /**
      * 适配器
      */
@@ -218,8 +228,8 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
                 holder.image = (ImageView) convertView
                         .findViewById(R.id.imageView1);
                 LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) holder.image.getLayoutParams(); //取控件textView当前的布局参数
-                linearParams.height = SystemUtil.getWidthInPx(SelectPhotoActivity.this)/3;// 控件的高强制设成屏幕的三分之一
-                linearParams.width =SystemUtil.getWidthInPx(SelectPhotoActivity.this)/3;// 控件的宽强制设成屏幕的三分之一
+                linearParams.height = SystemUtil.getWidthInPx(SendActivity.this)/3;// 控件的高强制设成屏幕的三分之一
+                linearParams.width =SystemUtil.getWidthInPx(SendActivity.this)/3;// 控件的宽强制设成屏幕的三分之一
                 holder.image.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                 convertView.setTag(holder);
             } else {
@@ -247,6 +257,7 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
                 switch (msg.what) {
                     case 1:
                         adapter.notifyDataSetChanged();
+                        Log.i("123","我在这里更新");
                         break;
                 }
                 super.handleMessage(msg);
@@ -274,7 +285,6 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
             }).start();
         }
     }
-
     protected void onRestart() {
         adapter.update();
         super.onRestart();
@@ -284,9 +294,8 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
     protected void onDestroy() {
         super.onDestroy();
         Bimp.tempSelectBitmap.clear();
-//        Log.i("123","------------------------");
-//        Log.i("123",result.toString()+"=========");
-//        Log.i("123",mResults.toString()+"---");
+        Log.i("123",result.toString()+"-----");
+        Log.i("123",mResults.toString()+"=====");
     }
     /**
      * 显示进度条对话框
@@ -308,4 +317,3 @@ public class SelectPhotoActivity extends AppCompatActivity implements View.OnCli
         }
     }
 }
-

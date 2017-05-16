@@ -3,11 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/a"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="matrix"
+        android:src="@color/grey2"
+        android:layout_marginTop="20dp"/>
+    <RelativeLayout
+        android:layout_below="@id/a"
+        android:id="@+id/layout"
+        style="@style/layout_w_h_2"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/title_logo"
+            style="@style/layout_w_h_3"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/my_ticket" />
+
+        <TextView
+            android:id="@+id/title_text4"
+            style="@style/layout_w_h_3"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/title_logo"
+            android:text="签退"
+            android:textColor="@color/grey2"
+            android:textSize="15sp" />
+
+        <ImageView
+            style="@style/layout_w_h_3"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/jiantou" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/exit"
         style="@style/login_btn_style"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
         android:text="退出登录" />
-    
 </RelativeLayout>
